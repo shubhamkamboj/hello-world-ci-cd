@@ -3,11 +3,12 @@ name: Build & Run on Self-Hosted Runner
 on:
   push:
     branches:
-      - master  
+      - master
 
 jobs:
   build-and-run:
-    runs-on: self-hosted  
+    runs-on: self-hosted
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -15,7 +16,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'  
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Allow PowerShell Script Execution (Windows)
@@ -28,5 +29,7 @@ jobs:
         shell: powershell
 
       - name: Run App on Port 8080
-        run: java -jar $(ls target/*.jar | head -n 1)
+        run: |
+          $jar = Get-ChildItem -Path target -Filter *.jar | Select-Object -First 1
+          java -jar $jar.FullName
         shell: powershell
