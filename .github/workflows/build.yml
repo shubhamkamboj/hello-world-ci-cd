@@ -22,4 +22,4 @@ jobs:
         run: mvn clean install 
 
       - name: Run App on Port 8080
-        run: java -jar target/your-app.jar
+        run: java -jar target/*.jar
