@@ -28,5 +28,5 @@ jobs:
         shell: powershell
 
       - name: Run App on Port 8080
-        run: java -jar target/*.jar
+        run: java -jar $(ls target/*.jar | head -n 1)
         shell: powershell
